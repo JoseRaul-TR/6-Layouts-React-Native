@@ -1,27 +1,33 @@
 import { Link } from "expo-router";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MyButton from "../components/Button";
+import HomeLinkButton from "../components/HomeLinkButton";
 
 export default function index() {
+  const exercisesScreens = [
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+  ] as const;
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.container}>
-        <Text style={styles.title}>Layout Practise Exercise</Text>
+        <Text style={styles.subtitle}>App development course</Text>
+        <Text style={styles.title}>Layout Practice Exercise</Text>
 
         <View style={styles.linkContainer}>
           {/* Use array to display the 6 screens (one for each exercise) */}
-          {["one", "two", "three", "four", "five", "six"].map(
-            (route, index) => (
-              <Link key={route} href={route} asChild>
-                <MyButton
-                  variant="home"
-                  title={`Layout ${index + 1}`}
-                  onPress={() => {}}
-                />
-              </Link>
-            ),
-          )}
+          {exercisesScreens.map((route, index) => (
+            <HomeLinkButton
+              key={route}
+              href={`/${route}`}
+              title={`Layout ${index + 1}`}
+            />
+          ))}
         </View>
       </View>
     </SafeAreaView>
@@ -39,14 +45,23 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
   },
+  subtitle: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#007AFF",
+    textTransform: "uppercase",
+    letterSpacing: 1.5,
+    marginBottom: 4,
+  },
   title: {
-    fontSize: 22,
+    fontSize: 28,
     fontWeight: "800",
     color: "#1c1c1e",
     marginBottom: 40,
     letterSpacing: -0.5,
     textAlign: "center",
   },
+
   linkContainer: {
     width: "100%",
     maxWidth: 400,

@@ -5,7 +5,7 @@ import * as Haptics from "expo-haptics";
 import ScreenFiveSixLayout from "../components/ScreenFiveSixLayout";
 import ItemList from "../components/ItemList";
 import MyTextInput from "../components/MyTextInput";
-import MyButton from "../components/Button";
+import MyButton from "../components/MyButton";
 
 export default function LayoutSix() {
   // States for the two input fields and the items in the list

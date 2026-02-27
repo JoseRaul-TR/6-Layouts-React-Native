@@ -10,7 +10,7 @@ import { useState } from "react";
 
 type Props = {
   children: React.ReactNode;
-}
+};
 
 export default function ScreenFiveSixLayout({ children }: Props) {
   const navigation = useNavigation();
@@ -78,7 +78,8 @@ const styles = StyleSheet.create({
   middleContainer: {
     flex: 8,
     backgroundColor: "#fff",
-    padding: 30,
+    paddingHorizontal: 20,  // Padding Left & Right
+    paddingVertical: 100, // Padding Top & Bottom
     gap: 20,
   },
 });
