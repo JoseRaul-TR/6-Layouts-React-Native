@@ -1,4 +1,4 @@
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useState } from "react";
 import * as Haptics from "expo-haptics";
 
@@ -10,22 +10,47 @@ import MyButton from "../components/MyButton";
 export default function LayoutFive() {
   // States for the input and the list
   const [inputText, setInputText] = useState("");
-  const [items, setItems] = useState<string[]>([]);
-  const [showError, setShowError] = useState(false); // Tracks submission attempts
+  // Array of objects to control "things" state
+  const [items, setItems] = useState<
+    { id: number; text: string; completed: boolean }[]
+  >([]); // "things" items contains: id, text, completed
+  // Tracks submission attempts
+  const [showError, setShowError] = useState(false);
 
   const handleAddItem = () => {
     if (inputText.trim().length > 0) {
-      setItems([inputText, ...items]);
+      const newItem = {
+        id: Date.now(), // Unique ID for each item
+        text: inputText,
+        completed: false,
+      };
+      setItems([newItem, ...items]);
       setInputText("");
       setShowError(false);
       // Success vibration
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
     } else {
-      // Error visual feedback
+      // Error visual feedback (red border in input fields)
       setShowError(true);
       // Error vibration
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
     }
+  };
+
+  const toggleItem = (id: number) => {
+    setItems(
+      items.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item,
+      ),
+    );
+    // Light haptic (vibration) feedback to user
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+  };
+
+  const deleteItem = (id: number) => {
+    setItems(items.filter((item) => item.id !== id));
+    // Light haptic (vibration) feedback to user by item deletion
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
   return (
@@ -45,7 +70,7 @@ export default function LayoutFive() {
       />
 
       {/* List display using custom component */}
-      <ItemList items={items} />
+      <ItemList items={items} onToggle={toggleItem} onDelete={deleteItem} />
     </ScreenFiveSixLayout>
   );
 }
