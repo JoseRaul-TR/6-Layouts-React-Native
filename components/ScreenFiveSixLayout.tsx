@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     flex: 8,
     backgroundColor: "#fff",
     paddingHorizontal: 20,  // Padding Left & Right
-    paddingVertical: 100, // Padding Top & Bottom
+    paddingVertical: 40, // Padding Top & Bottom
     gap: 20,
   },
 });
